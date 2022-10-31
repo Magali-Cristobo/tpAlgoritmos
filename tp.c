@@ -15,20 +15,23 @@ int main(){
     return 0;
 }
 void moverYOrdenar(tPila *p, int *error, tCola *c){
-    tDato numero;
+    tDato numero = 6;
     tLista l;
+    int existe;
     lCrear(&l);
-    lInsertarPpio(&l, 7);
+    lInsertarPpio(&l, 5);
     // lInsertarFin(&l, 6);
     // lBorrarPpio(&l);
+    lInsertarOrdenado(&l, numero, 'D');
     lPpio(&l);
-    // lSig(&l);
+    // lBuscarOrdenado(&l, numero, &existe);
+    lSig(&l);
     // lBorrarActual(&l);
     // lBorrarFin(&l);
-    lBorrarFin(&l);
+    // lBorrarFin(&l);
     // lPpio(&l);
-    // lInfo(&l,&numero);
-    printf("%i",lVacia(&l));
+    lInfo(&l,&numero);
+    printf("%i",numero);
     // cCrear(c);
     // cPoner(c, 4);
     // cPoner(c, 5);
