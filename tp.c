@@ -11,7 +11,6 @@ int main(){
     tPila p;
     tCola c;
     int error;
-    printf("aaa\n");
     moverYOrdenar(&p,&error,&c);
     return 0;
 }
@@ -19,10 +18,17 @@ void moverYOrdenar(tPila *p, int *error, tCola *c){
     tDato numero;
     tLista l;
     lCrear(&l);
-    lInsertarPpio(&l, 4);
+    lInsertarPpio(&l, 7);
+    // lInsertarFin(&l, 6);
+    // lBorrarPpio(&l);
     lPpio(&l);
-    lInfo(&l,&numero);
-    printf("%i",numero); // da cualquier cosa porque en realidad insertar ppio esta mal
+    // lSig(&l);
+    // lBorrarActual(&l);
+    // lBorrarFin(&l);
+    lBorrarFin(&l);
+    // lPpio(&l);
+    // lInfo(&l,&numero);
+    printf("%i",lVacia(&l));
     // cCrear(c);
     // cPoner(c, 4);
     // cPoner(c, 5);
