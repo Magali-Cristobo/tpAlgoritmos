@@ -24,11 +24,12 @@ int main(){
         pPoner(&p, n);
         revisarFinDatos(&seguir);
     }
+    // mostrarPila(&p);
     if (seguir){
-        error = 1;
+        error = 1; // significa que se lleno la pila y se querian insertar mas datos
     }
     moverYOrdenar(&p,&error,&c);
-    mostrarCola(&c);
+    mostrarCola(&c); // esto es para verificar
     return 0;
 }
 
@@ -40,32 +41,36 @@ void moverYOrdenar(tPila* p, int *error, tCola *c){
     *error = 0;
     pAux = p;
     lCrear(&lAux);
-    while (!pVacia(p) && !lLlena(&lAux)){
+    while (!pVacia(p) && !lLlena(&lAux)){ //sacamos los elementos de la pila y los ponemos de forma ordenada en una lista
         pSacar(p, &n);
         lInsertarOrdenado(&lAux, n, 'A');
     }
-    if (!pVacia(p)){
+    if (!pVacia(p)){ // quedaron elementos por sacar y se lleno la lista
         *error = 1;
     }
     else{
         pasarACola(&lAux, c, error); 
         pAux = p;
     }
-    }
+}
 
 void pasarACola(tLista *l, tCola *c, int *error){
     tDato n;
     lPpio(l);
-    if (!lFin(l) && !cLlena(c)){
+    if (!lFin(l) && !cLlena(c)){ //recorremos la lista ordenada asc y la agregamos a la cola
         lInfo(l, &n);
         cPoner(c, n);
         lSig(l);
-    }
-    else{
-        if (lFin(l)){
-            *error = 1;
+        while(!lFin(l) && !cLlena(c)){
+            lInfo(l, &n);
+            cPoner(c, n);
+            lSig(l);
         }
     }
+    if (!lFin(l)){
+        *error = 1;
+    }
+    
 }
 
 void revisarFinDatos(int *seguir){
@@ -89,35 +94,13 @@ void obtenerEntero(tDato *n){
     }
     while (*n < 0);
 }
+
 void mostrarCola(tCola *c){
     tDato n;
+    printf("elementos de la cola: ");
     while (!cVacia(c)){
         cSacar(c, &n);
         printf("%i", n);
     }
-    
+    printf("\n");
 }
- // no borrar porlas    
-    //lCrear(&l);
-    //lInsertarPpio(&l, 5);
-    // lInsertarFin(&l, 6);
-    // lBorrarPpio(&l);
-    //lInsertarOrdenado(&l, n, 'D');
-    //lPpio(&l);
-    // lBuscarOrdenado(&l, numero, &existe);
-    //lSig(&l);
-    // lBorrarActual(&l);
-    // lBorrarFin(&l);
-    // lBorrarFin(&l);
-    // lPpio(&l);
-    //lInfo(&l,&numero);
-    //printf("%i",numero);
-    // cCrear(c);
-    // cPoner(c, 4);
-    // cPoner(c, 5);
-    // cSacar(c, &numero);
-    // pCrear(p);
-    // pPoner(p, 4);
-    // pPoner(p, 4);
-    // pSacar(p, &numero);
-    // printf("%i", pLlena(p));

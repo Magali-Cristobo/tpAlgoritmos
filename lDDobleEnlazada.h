@@ -41,12 +41,12 @@ nodoL* crearNodo(tDato x){ //esta bien asi?
 }
 
 void lInsertarPpio (tLista *l, tDato n){
-    lista aux = crearNodo(n);
+    lista nuevo = crearNodo(n);
 	if(l->cab!=NULL){
-		aux->sig = l->cab;
-		aux->sig->ant = aux;
+		nuevo->sig = l->cab;
+		nuevo->sig->ant = nuevo;
 	}
-	l->cab=aux;
+	l->cab=nuevo;
 }
 
 void lPpio(tLista* l){
@@ -151,7 +151,7 @@ void lInsertarOrdenado(tLista *l, tDato x, char orden){
         }
         else{
             aux = l->cab;
-            while(aux->sig != NULL && ((x < aux->sig->info && orden == 'A') || (x > aux->sig->info && orden == 'D'))){
+            while(aux->sig != NULL && ((x > aux->sig->info && orden == 'A') || (x < aux->sig->info && orden == 'D'))){
                 aux = aux->sig;
             }
             nuevo->sig = aux->sig;
@@ -164,7 +164,7 @@ void lInsertarOrdenado(tLista *l, tDato x, char orden){
     }
 }
 
-void lBuscarOrdenado(tLista *l, tDato x, int *existe){// ver que onda con la clave, FUNCIONAAAAA
+void lBuscarOrdenado(tLista *l, tDato x, int *existe){// ver que onda con la clave
     lista aux;
     *existe = 0;
     if(l->cab != NULL){
