@@ -18,14 +18,16 @@ typedef struct lista{
 	lista actual;
 } tLista;
 
+// ----------- Procedimientos y Funciones -------------- //
+
 int lLlena(tLista *l){
     return 0;
 }
 
 void lCrear(tLista* l){
     l->cab= NULL;
-    l->actual = NULL;
-}
+    l->actual = NULL; // Según recuerdo, para el lCrear sólo hace falta asignar NULL a l->cab. Parece razonable ponerlo como está (así como los dos están asginados)
+}                     // Habrá que preguntar..
 
 int lVacia(tLista* l){
     return l->cab == NULL;
@@ -84,6 +86,7 @@ void lBorrarPpio(tLista *l){
 
 void lInsertarFin(tLista *l, tDato x){
     lista nuevoNodo, aux;
+	
     nuevoNodo = crearNodo(x);
     if (l->cab == NULL){
         l->cab = nuevoNodo;
@@ -104,6 +107,7 @@ void lBorrarActual(tLista *l){
     if (l->cab == l->actual){
         if (l->cab->sig == NULL){
             l->cab = NULL;
+	    l->actual = NULL; // AGREGADO //
         }
         else{
             l->cab->sig->ant = NULL;
@@ -127,11 +131,12 @@ void lBorrarFin(tLista *l){
         aux = l->cab;
         l->cab = NULL;
     }
-    else{
-        t = l->cab;
+    else{                    // Cuando entras en el ELSE, hace lo que tiene que hacer. Luego sale y se dispone el aux, pero estarías borrando la cabecera no el ultimo.
+        t = l->cab;	     // Se tiene que agregar que "aux = t" entre la linea 134 y 135, para luego pueda borrar el último cuando sale del ELSE.
         while (t->sig != NULL){
             t = t->sig;
         }
+	aux = t;
         t->ant->sig = NULL;
     }
     free(aux);
@@ -139,6 +144,7 @@ void lBorrarFin(tLista *l){
 
 void lInsertarOrdenado(tLista *l, tDato x, char orden){
     lista aux, nuevo;
+	
     nuevo = crearNodo(x);
     if(l->cab == NULL){
         l->cab = nuevo;
@@ -164,36 +170,37 @@ void lInsertarOrdenado(tLista *l, tDato x, char orden){
     }
 }
 
-void lBuscarOrdenado(tLista *l, tDato x, int *existe){// ver que onda con la clave
-    lista aux;
-    *existe = 0;
+void lBuscarOrdenado(tLista *l, tDato x, int *existe){ // "Ver que onda con la clave."
+    lista aux;					       // "Podemos crear otro tipo de dato que sea tDatoLClave que tenga un campo clave de tipo tClave y tClave sea int.
+    						       // Acá trabajamos con x de tipo tClave. Cuando vayamos a usar el procedimiento usamos lo que dije arriba, ya que 
+    *existe = 0;                                       // es un registro que tiene un campo clave de tipo tClave."
     if(l->cab != NULL){
         if(l->cab->info == x){
             *existe = 1;
             l->actual = l->cab;
-        }
-        else{
-            aux = l->cab;
-            while (aux != NULL && l->cab->info == aux->info){
-                aux = aux->sig;
-            }
-            if(aux != NULL){
-                if(l->cab->info < aux->info){
-                    while (aux !=NULL && aux->info < x){
-                        aux = aux->sig;
-                    }
-                }
-                else{
-                    while (aux != NULL && aux->info > x){
-                        aux = aux->sig;
-                    }
-                }
-                if(aux != NULL && aux->info == x){
-                    *existe = 1;
-                    l->actual = aux;
-                }
-            }
-        }
+    	}
+    	else {
+        	aux = l->cab;
+        	while (aux != NULL && l->cab->info == aux->info){
+        	    aux = aux->sig;
+        	}
+        	if(aux != NULL){
+        	    if(l->cab->info < aux->info){
+        	        while (aux !=NULL && aux->info < x){
+        	             aux = aux->sig;
+                	}
+         	}
+         	else {
+             		while (aux != NULL && aux->info > x){
+                 		aux = aux->sig;
+             		}
+         	}
+         	if(aux != NULL && aux->info == x){
+              		*existe = 1;
+              		l->actual = aux;
+         	}
+   	     }
+    	}
     }
 }
 
