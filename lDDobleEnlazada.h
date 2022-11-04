@@ -107,7 +107,7 @@ void lBorrarActual(tLista *l){
     if (l->cab == l->actual){
         if (l->cab->sig == NULL){
             l->cab = NULL;
-	    l->actual = NULL; // AGREGADO //
+	        l->actual = NULL; // AGREGADO //
         }
         else{
             l->cab->sig->ant = NULL;
@@ -136,7 +136,7 @@ void lBorrarFin(tLista *l){
         while (t->sig != NULL){
             t = t->sig;
         }
-	aux = t;
+	    aux = t;
         t->ant->sig = NULL;
     }
     free(aux);
