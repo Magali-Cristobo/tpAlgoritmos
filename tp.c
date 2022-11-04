@@ -43,7 +43,10 @@ void moverYOrdenar(tPila* p, int *error, tCola *c){
     lCrear(&lAux);
     while (!pVacia(p) && !lLlena(&lAux)){ //sacamos los elementos de la pila y los ponemos de forma ordenada en una lista
         pSacar(p, &n);
-        lInsertarOrdenado(&lAux, n, 'A');
+        lBuscarOrdenado(&lAux, n, &existe);
+        if (!existe){
+            lInsertarOrdenado(&lAux, n, 'A');
+        }
     }
     if (!pVacia(p)){ // quedaron elementos por sacar y se lleno la lista
         *error = 1;

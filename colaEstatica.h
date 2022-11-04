@@ -1,6 +1,6 @@
 #ifndef COLA_ESTATICA_ENTEROS_H
 #define COLA_ESTATICA_ENTEROS_H
-#define CMAX 3
+#define CMAX 100 //para probar conviene que sea mas chico
 
 typedef int tDato;
 
