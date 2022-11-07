@@ -26,14 +26,13 @@ int lLlena(tLista *l){
 
 void lCrear(tLista* l){
     l->cab= NULL;
-    l->actual = NULL; // Según recuerdo, para el lCrear sólo hace falta asignar NULL a l->cab. Parece razonable ponerlo como está (así como los dos están asginados)
-}                     // Habrá que preguntar..
+}
 
 int lVacia(tLista* l){
     return l->cab == NULL;
 }
 
-nodoL* crearNodo(tDato x){ //esta bien asi?
+nodoL* crearNodo(tDato x){ 
     nodoL* nodo= NULL;
     nodo = malloc(sizeof(nodoL));
     nodo->info=x;
@@ -107,7 +106,7 @@ void lBorrarActual(tLista *l){
     if (l->cab == l->actual){
         if (l->cab->sig == NULL){
             l->cab = NULL;
-	        l->actual = NULL; // AGREGADO //
+	        l->actual = NULL;
         }
         else{
             l->cab->sig->ant = NULL;
@@ -131,8 +130,8 @@ void lBorrarFin(tLista *l){
         aux = l->cab;
         l->cab = NULL;
     }
-    else{                    // Cuando entras en el ELSE, hace lo que tiene que hacer. Luego sale y se dispone el aux, pero estarías borrando la cabecera no el ultimo.
-        t = l->cab;	     // Se tiene que agregar que "aux = t" entre la linea 134 y 135, para luego pueda borrar el último cuando sale del ELSE.
+    else{                    
+        t = l->cab;	    
         while (t->sig != NULL){
             t = t->sig;
         }
@@ -170,10 +169,9 @@ void lInsertarOrdenado(tLista *l, tDato x, char orden){
     }
 }
 
-void lBuscarOrdenado(tLista *l, tDato x, int *existe){ // "Ver que onda con la clave."
-    lista aux;					       // "Podemos crear otro tipo de dato que sea tDatoLClave que tenga un campo clave de tipo tClave y tClave sea int.
-    						       // Acá trabajamos con x de tipo tClave. Cuando vayamos a usar el procedimiento usamos lo que dije arriba, ya que 
-    *existe = 0;                                       // es un registro que tiene un campo clave de tipo tClave."
+void lBuscarOrdenado(tLista *l, tDato x, int *existe){ // ver que onda con la clave
+    lista aux;					     				       
+    *existe = 0;                                       
     if(l->cab != NULL){
         if(l->cab->info == x){
             *existe = 1;

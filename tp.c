@@ -24,7 +24,6 @@ int main(){
         pPoner(&p, n);
         revisarFinDatos(&seguir);
     }
-    // mostrarPila(&p);
     if (seguir){
         error = 1; // significa que se lleno la pila y se querian insertar mas datos
     }
@@ -41,23 +40,6 @@ void moverYOrdenar(tPila* p, int *error, tCola *c){
     *error = 0;
     pAux = p;
     lCrear(&lAux);
-    // Abajo no valida que no se repitan los numeros. Habría que hacer un lBuscarOrdenado del dato, si no está entonces lo agregamos, si está, no se hace nada, porque 
-    // ya existe y no queremos repetidos. Hay que ver que onda con el tClave, digo que hagamos otro tipo de dato, por ejemplo:
-    /*
-    typedef int tClave;
-    tDatoClave = regsitro
-        clave: tClave
-    FinReg
-    
-    tDatoClave datoClave;
-    datoClave.clave = n;
-    lBuscarOrdenado(&lAux, datoClave.clave, &existe);
-    if (existe){
-        if (!lLlena(&lAux)){
-            lInsertarOrdenado(&lAux, datoClave, 'A');
-        }
-    }
-    */
     while (!pVacia(p) && !lLlena(&lAux)){ //sacamos los elementos de la pila y los ponemos de forma ordenada en una lista
         pSacar(p, &n);
         lBuscarOrdenado(&lAux, n, &existe);
@@ -120,7 +102,7 @@ void mostrarCola(tCola *c){
     printf("elementos de la cola: ");
     while (!cVacia(c)){
         cSacar(c, &n);
-        printf("%i", n);
+        printf("%i ", n);
     }
     printf("\n");
 }

@@ -42,8 +42,6 @@ void cSacar(tCola* c, tDato* dato)
     }
 
     c->fin--;
-
-    
 }
 
 #endif
