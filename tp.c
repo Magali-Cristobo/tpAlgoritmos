@@ -34,6 +34,7 @@ int main(){
 
 void moverYOrdenar(tPila* p, int *error, tCola *c){ 
     tDato n;
+    tDatoLista elemento;
     tLista lAux;
     tPila* pAux; 
     int existe;
@@ -42,9 +43,10 @@ void moverYOrdenar(tPila* p, int *error, tCola *c){
     lCrear(&lAux);
     while (!pVacia(p) && !lLlena(&lAux)){ //sacamos los elementos de la pila y los ponemos de forma ordenada en una lista
         pSacar(p, &n);
-        lBuscarOrdenado(&lAux, n, &existe);
+        elemento.clave = n;
+        lBuscarOrdenado(&lAux, elemento.clave, &existe);
         if (!existe){
-            lInsertarOrdenado(&lAux, n, 'A');
+            lInsertarOrdenado(&lAux, elemento, 'A');
         }
     }
     if (!pVacia(p)){ // quedaron elementos por sacar y se lleno la lista
@@ -57,15 +59,18 @@ void moverYOrdenar(tPila* p, int *error, tCola *c){
 }
 
 void pasarACola(tLista *l, tCola *c, int *error){
-    tDato n;
+    tDatoLista n;
+    tDato datoPila;
     lPpio(l);
     if (!lFin(l) && !cLlena(c)){ //recorremos la lista ordenada asc y la agregamos a la cola
         lInfo(l, &n);
-        cPoner(c, n);
+        datoPila = n.clave;
+        cPoner(c, datoPila);
         lSig(l);
         while(!lFin(l) && !cLlena(c)){
             lInfo(l, &n);
-            cPoner(c, n);
+            datoPila = n.clave;
+            cPoner(c, datoPila);
             lSig(l);
         }
     }

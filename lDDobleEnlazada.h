@@ -1,16 +1,20 @@
 #ifndef LISTA_DINAMICA_DOBLEMENTE_ENLAZADA
 #define LISTA_DINAMICA_DOBLEMENTE_ENLAZADA
 
-typedef int tDato;
+typedef int tClave;
+
+typedef struct tDatoLista{
+    tClave clave;
+} tDatoLista;
+ 
 typedef struct nodo
 {
-	tDato info;
+	struct tDatoLista info;
 	struct nodo *sig;
 	struct nodo *ant;
 } nodoL;
 
-nodoL* crearNodo(tDato x);
-
+nodoL* crearNodo(tDatoLista x);
 typedef nodoL* lista;
 
 typedef struct lista{
@@ -32,16 +36,16 @@ int lVacia(tLista* l){
     return l->cab == NULL;
 }
 
-nodoL* crearNodo(tDato x){ 
+nodoL* crearNodo(tDatoLista x){ 
     nodoL* nodo= NULL;
     nodo = malloc(sizeof(nodoL));
-    nodo->info=x;
+    nodo->info = x;
     nodo->sig = NULL;
     nodo->ant = NULL;
     return nodo;
 }
 
-void lInsertarPpio (tLista *l, tDato n){
+void lInsertarPpio (tLista *l, tDatoLista n){
     lista nuevo = crearNodo(n);
 	if(l->cab!=NULL){
 		nuevo->sig = l->cab;
@@ -58,11 +62,11 @@ void lSig(tLista *l){
     l->actual = l->actual->sig;
 }
 
-void lInfo(tLista *l, tDato *x){ 
+void lInfo(tLista *l, tDatoLista *x){ 
     *x = l->actual->info;
 }
 
-void lModificar(tLista *l, tDato x){
+void lModificar(tLista *l, tDatoLista x){
     l->actual->info = x;
 }
 
@@ -83,7 +87,7 @@ void lBorrarPpio(tLista *l){
     free(aux);
 }
 
-void lInsertarFin(tLista *l, tDato x){
+void lInsertarFin(tLista *l, tDatoLista x){
     lista nuevoNodo, aux;
 	
     nuevoNodo = crearNodo(x);
@@ -141,7 +145,7 @@ void lBorrarFin(tLista *l){
     free(aux);
 }
 
-void lInsertarOrdenado(tLista *l, tDato x, char orden){
+void lInsertarOrdenado(tLista *l, tDatoLista x, char orden){
     lista aux, nuevo;
 	
     nuevo = crearNodo(x);
@@ -149,14 +153,14 @@ void lInsertarOrdenado(tLista *l, tDato x, char orden){
         l->cab = nuevo;
     }
     else{
-        if(x > l->cab->info && orden == 'D' || x < l->cab->info && orden == 'A'){
+        if(x.clave > l->cab->info.clave && orden == 'D' || x.clave < l->cab->info.clave && orden == 'A'){
             nuevo->sig = l->cab;
             l->cab = nuevo;
             l->cab->ant = nuevo;
         }
         else{
             aux = l->cab;
-            while(aux->sig != NULL && ((x > aux->sig->info && orden == 'A') || (x < aux->sig->info && orden == 'D'))){
+            while(aux->sig != NULL && ((x.clave > aux->sig->info.clave && orden == 'A') || (x.clave < aux->sig->info.clave && orden == 'D'))){
                 aux = aux->sig;
             }
             nuevo->sig = aux->sig;
@@ -169,31 +173,31 @@ void lInsertarOrdenado(tLista *l, tDato x, char orden){
     }
 }
 
-void lBuscarOrdenado(tLista *l, tDato x, int *existe){ // ver que onda con la clave
+void lBuscarOrdenado(tLista *l, tClave x, int *existe){ // ver que onda con la clave
     lista aux;					     				       
     *existe = 0;                                       
     if(l->cab != NULL){
-        if(l->cab->info == x){
+        if(l->cab->info.clave == x){
             *existe = 1;
             l->actual = l->cab;
     	}
     	else {
         	aux = l->cab;
-        	while (aux != NULL && l->cab->info == aux->info){
+        	while (aux != NULL && l->cab->info.clave == aux->info.clave){
         	    aux = aux->sig;
         	}
         	if(aux != NULL){
-        	    if(l->cab->info < aux->info){
-        	        while (aux !=NULL && aux->info < x){
+        	    if(l->cab->info.clave < aux->info.clave){
+        	        while (aux !=NULL && aux->info.clave < x){
         	             aux = aux->sig;
                 	}
          	}
          	else {
-             		while (aux != NULL && aux->info > x){
+             		while (aux != NULL && aux->info.clave > x){
                  		aux = aux->sig;
              		}
          	}
-         	if(aux != NULL && aux->info == x){
+         	if(aux != NULL && aux->info.clave == x){
               		*existe = 1;
               		l->actual = aux;
          	}
