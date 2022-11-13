@@ -14,12 +14,11 @@ typedef struct nodo
 	struct nodo *ant;
 } nodoL;
 
-nodoL* crearNodo(tDatoLista x);
-typedef nodoL* lista;
+typedef nodoL* puntero;
 
 typedef struct lista{
-	lista cab;
-	lista actual;
+	puntero cab;
+	puntero actual;
 } tLista;
 
 // ----------- Procedimientos y Funciones -------------- //
@@ -46,7 +45,7 @@ nodoL* crearNodo(tDatoLista x){
 }
 
 void lInsertarPpio (tLista *l, tDatoLista n){
-    lista nuevo = crearNodo(n);
+    puntero nuevo = crearNodo(n);
 	if(l->cab!=NULL){
 		nuevo->sig = l->cab;
 		nuevo->sig->ant = nuevo;
@@ -75,7 +74,7 @@ int lFin(tLista *l){
 }
 
 void lBorrarPpio(tLista *l){
-    lista aux;
+    puntero aux;
     aux = l->cab;
     if (l->cab->sig == NULL){
         l->cab = NULL;
@@ -88,7 +87,7 @@ void lBorrarPpio(tLista *l){
 }
 
 void lInsertarFin(tLista *l, tDatoLista x){
-    lista nuevoNodo, aux;
+    puntero nuevoNodo, aux;
 	
     nuevoNodo = crearNodo(x);
     if (l->cab == NULL){
@@ -105,7 +104,7 @@ void lInsertarFin(tLista *l, tDatoLista x){
 }
 
 void lBorrarActual(tLista *l){
-    lista aux;
+    puntero aux;
     aux = l->actual;
     if (l->cab == l->actual){
         if (l->cab->sig == NULL){
@@ -128,8 +127,7 @@ void lBorrarActual(tLista *l){
 }
 
 void lBorrarFin(tLista *l){
-    lista aux;
-    lista t;
+    puntero aux, t;
     if (l->cab->sig == NULL){
         aux = l->cab;
         l->cab = NULL;
@@ -146,7 +144,7 @@ void lBorrarFin(tLista *l){
 }
 
 void lInsertarOrdenado(tLista *l, tDatoLista x, char orden){
-    lista aux, nuevo;
+    puntero aux, nuevo;
 	
     nuevo = crearNodo(x);
     if(l->cab == NULL){
@@ -173,8 +171,8 @@ void lInsertarOrdenado(tLista *l, tDatoLista x, char orden){
     }
 }
 
-void lBuscarOrdenado(tLista *l, tClave x, int *existe){ // ver que onda con la clave
-    lista aux;					     				       
+void lBuscarOrdenado(tLista *l, tClave x, int *existe){ 
+    puntero aux;					     				       
     *existe = 0;                                       
     if(l->cab != NULL){
         if(l->cab->info.clave == x){
